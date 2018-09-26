@@ -13,7 +13,7 @@ Project configuration:F:\MyLayaGame\AirWar/.actionScriptProperties.
 1,0.00,F:/MyLayaGame/AirWar/libs/laya/src,0,Collect
 1,2.00,,0,read class message
 1,89.94,,0,Disable Flash3D F:/MyLayaGame/AirWar/src/Main.as
-12,89.94,F:/MyLayaGame/AirWar/bin/h5/Main.max.js,1049972,
+12,89.94,F:/MyLayaGame/AirWar/bin/h5/Main.max.js,943263,
 11,89.94,F:/MyLayaGame/AirWar/bin/h5/Main.max.html,791,
 ******************************************************************************
 14,89.94,,0,
