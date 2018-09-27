@@ -5,13 +5,13 @@ import Stage = Laya.Stage;
 class Main 
 {
 	/**开始页面***/
-	// private var start:GameStart;
+	private start:GameStart;
 	/**地图页面***/
-	//private var map:GameMap;
+	//private map:GameMap;
 	/**游戏中界面***/
-	//private var play:GamePlay;
+	//private play:GamePlay;
 	/**游戏结束页面***/
-	//private var over:GameOver;
+	//private over:GameOver;
 
 	constructor() 
 	{
@@ -19,13 +19,18 @@ class Main
 		Laya.init(720,1280,WebGL);
 		//全屏不等比缩放模式
 		Laya.stage.scaleMode = Stage.SCALE_EXACTFIT;
-
-		// Laya.Stat.show();
-
+		
+		 Laya.loader.load("res/atlas/gameUI.atlas",laya.utils.Handler.create(this,this.GameStart));
 	}
 
 	private GameStart():void 
 	{
+		//实例化开始页面
+		// this.start = new GameStart();
+
+		let bg:Laya.Sprite = new Laya.Sprite();
+		bg.loadImage("background.png");
+		Laya.stage.addChild(bg);
 		
 	}
 }

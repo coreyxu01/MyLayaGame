@@ -1,19 +1,19 @@
-1,0.00,,0,Project command:F:\MyLayaGame\AirWar/.actionScriptProperties;iflash=false;windowshow=false;chromerun=false;quickcompile=true
-Project configuration:F:\MyLayaGame\AirWar/.actionScriptProperties.
-1,0.00,,0,output path:F:/MyLayaGame/AirWar/bin/h5/
-1,0.00,,0,Main Class:F:/MyLayaGame/AirWar/src/Main.as
+1,0.00,,0,Project command:G:\MyLayaGame\AirWar/.actionScriptProperties;iflash=false;windowshow=false;chromerun=false;quickcompile=true
+Project configuration:G:\MyLayaGame\AirWar/.actionScriptProperties.
+1,0.00,,0,output path:G:/MyLayaGame/AirWar/bin/h5/
+1,0.00,,0,Main Class:G:/MyLayaGame/AirWar/src/Main.as
 1,0.00,,0,output file:Main
-1,0.00,,0,compilerSourcePath F:/MyLayaGame/AirWar/libs/laya/src/
+1,0.00,,0,compilerSourcePath G:/MyLayaGame/AirWar/libs/laya/src/
 
-1,0.00,,0,Compile Path:F:/MyLayaGame/AirWar/src/
+1,0.00,,0,Compile Path:G:/MyLayaGame/AirWar/src/
 
-1,0.00,,0,Compile Path:F:/MyLayaGame/AirWar/libs/laya/src/
+1,0.00,,0,Compile Path:G:/MyLayaGame/AirWar/libs/laya/src/
 
-1,0.00,F:/MyLayaGame/AirWar/src,0,Collect
-1,0.00,F:/MyLayaGame/AirWar/libs/laya/src,0,Collect
+1,0.00,G:/MyLayaGame/AirWar/src,0,Collect
+1,0.00,G:/MyLayaGame/AirWar/libs/laya/src,0,Collect
 1,2.00,,0,read class message
-1,89.94,,0,Disable Flash3D F:/MyLayaGame/AirWar/src/Main.as
-12,89.94,F:/MyLayaGame/AirWar/bin/h5/Main.max.js,943263,
-11,89.94,F:/MyLayaGame/AirWar/bin/h5/Main.max.html,791,
+1,89.94,,0,Disable Flash3D G:/MyLayaGame/AirWar/src/Main.as
+12,89.94,G:/MyLayaGame/AirWar/bin/h5/Main.max.js,933471,
+11,89.94,G:/MyLayaGame/AirWar/bin/h5/Main.max.html,791,
 ******************************************************************************
 14,89.94,,0,

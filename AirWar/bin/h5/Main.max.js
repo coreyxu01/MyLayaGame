@@ -26279,139 +26279,6 @@ var Laya=window.Laya=(function(window,document){
 	})(Component)
 
 
-	//class laya.ui.TipManager extends laya.ui.Component
-	var TipManager=(function(_super){
-		function TipManager(){
-			this._tipBox=null;
-			this._tipText=null;
-			this._defaultTipHandler=null;
-			TipManager.__super.call(this);
-			this._tipBox=new Component();
-			this._tipBox.addChild(this._tipText=new Text());
-			this._tipText.x=this._tipText.y=5;
-			this._tipText.color=TipManager.tipTextColor;
-			this._defaultTipHandler=this._showDefaultTip;
-			Laya.stage.on("showtip",this,this._onStageShowTip);
-			Laya.stage.on("hidetip",this,this._onStageHideTip);
-			this.zOrder=1100
-		}
-
-		__class(TipManager,'laya.ui.TipManager',_super);
-		var __proto=TipManager.prototype;
-		/**
-		*@private
-		*/
-		__proto._onStageHideTip=function(e){
-			Laya.timer.clear(this,this._showTip);
-			this.closeAll();
-			this.removeSelf();
-		}
-
-		/**
-		*@private
-		*/
-		__proto._onStageShowTip=function(data){
-			Laya.timer.once(TipManager.tipDelay,this,this._showTip,[data],true);
-		}
-
-		/**
-		*@private
-		*/
-		__proto._showTip=function(tip){
-			if ((typeof tip=='string')){
-				var text=String(tip);
-				if (Boolean(text)){
-					this._defaultTipHandler(text);
-				}
-				}else if ((tip instanceof laya.utils.Handler )){
-				(tip).run();
-				}else if ((typeof tip=='function')){
-				(tip).apply();
-			}
-			if (true){
-				Laya.stage.on("mousemove",this,this._onStageMouseMove);
-				Laya.stage.on("mousedown",this,this._onStageMouseDown);
-			}
-			this._onStageMouseMove(null);
-		}
-
-		/**
-		*@private
-		*/
-		__proto._onStageMouseDown=function(e){
-			this.closeAll();
-		}
-
-		/**
-		*@private
-		*/
-		__proto._onStageMouseMove=function(e){
-			this._showToStage(this,TipManager.offsetX,TipManager.offsetY);
-		}
-
-		/**
-		*@private
-		*/
-		__proto._showToStage=function(dis,offX,offY){
-			(offX===void 0)&& (offX=0);
-			(offY===void 0)&& (offY=0);
-			var rec=dis.getBounds();
-			dis.x=Laya.stage.mouseX+offX;
-			dis.y=Laya.stage.mouseY+offY;
-			if (dis.x+rec.width > Laya.stage.width){
-				dis.x-=rec.width+offX;
-			}
-			if (dis.y+rec.height > Laya.stage.height){
-				dis.y-=rec.height+offY;
-			}
-		}
-
-		/**关闭所有鼠标提示*/
-		__proto.closeAll=function(){
-			Laya.timer.clear(this,this._showTip);
-			Laya.stage.off("mousemove",this,this._onStageMouseMove);
-			Laya.stage.off("mousedown",this,this._onStageMouseDown);
-			this.removeChildren();
-		}
-
-		/**
-		*显示显示对象类型的tip
-		*/
-		__proto.showDislayTip=function(tip){
-			this.addChild(tip);
-			this._showToStage(this);
-			Laya._currentStage.addChild(this);
-		}
-
-		/**
-		*@private
-		*/
-		__proto._showDefaultTip=function(text){
-			this._tipText.text=text;
-			var g=this._tipBox.graphics;
-			g.clear();
-			g.drawRect(0,0,this._tipText.width+10,this._tipText.height+10,TipManager.tipBackColor);
-			this.addChild(this._tipBox);
-			this._showToStage(this);
-			Laya._currentStage.addChild(this);
-		}
-
-		/**默认鼠标提示函数*/
-		__getset(0,__proto,'defaultTipHandler',function(){
-			return this._defaultTipHandler;
-			},function(value){
-			this._defaultTipHandler=value;
-		});
-
-		TipManager.offsetX=10;
-		TipManager.offsetY=15;
-		TipManager.tipTextColor="#ffffff";
-		TipManager.tipBackColor="#111111";
-		TipManager.tipDelay=200;
-		return TipManager;
-	})(Component)
-
-
 	//class laya.display.Input extends laya.display.Text
 	var Input=(function(_super){
 		function Input(){
@@ -29964,6 +29831,16 @@ var Laya=window.Laya=(function(window,document){
 	})(ScrollBar)
 
 
+	//class laya.ui.VSlider extends laya.ui.Slider
+	var VSlider=(function(_super){
+		function VSlider(){VSlider.__super.call(this);;
+		};
+
+		__class(VSlider,'laya.ui.VSlider',_super);
+		return VSlider;
+	})(Slider)
+
+
 	//class laya.ui.TextInput extends laya.ui.Label
 	var TextInput=(function(_super){
 		function TextInput(text){
@@ -30192,16 +30069,6 @@ var Laya=window.Laya=(function(window,document){
 
 		return TextInput;
 	})(Label)
-
-
-	//class laya.ui.VSlider extends laya.ui.Slider
-	var VSlider=(function(_super){
-		function VSlider(){VSlider.__super.call(this);;
-		};
-
-		__class(VSlider,'laya.ui.VSlider',_super);
-		return VSlider;
-	})(Slider)
 
 
 	//class laya.display.GraphicAnimation extends laya.display.FrameAnimation
@@ -30574,203 +30441,6 @@ var Laya=window.Laya=(function(window,document){
 		}
 
 		return GraphicAnimation;
-	})(FrameAnimation)
-
-
-	//class laya.ui.EffectAnimation extends laya.display.FrameAnimation
-	var EffectAnimation=(function(_super){
-		function EffectAnimation(){
-			this._target=null;
-			this._playEvents=null;
-			this._initData={};
-			this._aniKeys=null;
-			this._effectClass=null;
-			EffectAnimation.__super.call(this);
-		}
-
-		__class(EffectAnimation,'laya.ui.EffectAnimation',_super);
-		var __proto=EffectAnimation.prototype;
-		/**@private */
-		__proto._onOtherBegin=function(effect){
-			if (effect==this)
-				return;
-			this.stop();
-		}
-
-		/**@private */
-		__proto.addEvent=function(){
-			if (!this._target || !this._playEvents)
-				return;
-			this._setControlNode(this._target);
-			this._target.on(this._playEvents,this,this._onPlayAction);
-		}
-
-		/**@private */
-		__proto._onPlayAction=function(){
-			if (!this._target)
-				return;
-			this._target.event("effectanimationbegin",[this]);
-			this._recordInitData();
-			this.play(0,false);
-		}
-
-		/**@private */
-		__proto._recordInitData=function(){
-			if (!this._aniKeys)
-				return;
-			var i=0,len=0;
-			len=this._aniKeys.length;
-			var key;
-			for (i=0;i < len;i++){
-				key=this._aniKeys[i];
-				this._initData[key]=this._target[key];
-			}
-		}
-
-		/**@private */
-		__proto._displayToIndex=function(value){
-			if (!this._animationData)
-				return;
-			if (value < 0)
-				value=0;
-			if (value > this._count)
-				value=this._count;
-			var nodes=this._animationData.nodes,i=0,len=nodes.length;
-			len=len > 1 ? 1 :len;
-			for (i=0;i < len;i++){
-				this._displayNodeToFrame(nodes[i],value);
-			}
-		}
-
-		/**@private */
-		__proto._displayNodeToFrame=function(node,frame,targetDic){
-			if (!this._target)
-				return;
-			var target;
-			target=this._target;
-			var frames=node.frames,key,propFrames,value;
-			var keys=node.keys,i=0,len=keys.length;
-			var secondFrames;
-			secondFrames=node.secondFrames;
-			var tSecondFrame=0;
-			var easeFun;
-			var tKeyFrames;
-			var startFrame;
-			var endFrame;
-			for (i=0;i < len;i++){
-				key=keys[i];
-				propFrames=frames[key];
-				tSecondFrame=secondFrames[key];
-				if (tSecondFrame==-1){
-					value=this._initData[key];
-				}
-				else {
-					if (frame < tSecondFrame){
-						tKeyFrames=node.keyframes[key];
-						startFrame=tKeyFrames[0];
-						if (startFrame.tween){
-							easeFun=Ease[startFrame.tweenMethod];
-							if (easeFun==null){
-								easeFun=Ease.linearNone;
-							}
-							endFrame=tKeyFrames[1];
-							value=easeFun(frame,this._initData[key],endFrame.value-this._initData[key],endFrame.index);
-						}
-						else {
-							value=this._initData[key];
-						}
-					}
-					else {
-						if (propFrames.length > frame){
-							value=propFrames[frame];
-						}
-						else {
-							value=propFrames[propFrames.length-1];
-						}
-					}
-				}
-				target[key]=value;
-			}
-		}
-
-		/**@private */
-		__proto._calculateNodeKeyFrames=function(node){
-			_super.prototype._calculateNodeKeyFrames.call(this,node);
-			var keyFrames=node.keyframes,key,tKeyFrames,target=node.target;
-			var secondFrames;
-			secondFrames={};
-			node.secondFrames=secondFrames;
-			for (key in keyFrames){
-				tKeyFrames=keyFrames[key];
-				if (tKeyFrames.length <=1){
-					secondFrames[key]=-1;
-				}
-				else {
-					secondFrames[key]=tKeyFrames[1].index;
-				}
-			}
-		}
-
-		/**
-		*控制对象
-		*@param v
-		*
-		*/
-		/**
-		*控制对象
-		*@return
-		*
-		*/
-		__getset(0,__proto,'target',function(){
-			return this._target;
-			},function(v){
-			if (this._target){
-				this._target.off("effectanimationbegin",this,this._onOtherBegin);
-			}
-			this._target=v;
-			if (this._target){
-				this._target.on("effectanimationbegin",this,this._onOtherBegin);
-			}
-			this.addEvent();
-		});
-
-		/**
-		*设置开始播放的事件
-		*@param event
-		*
-		*/
-		__getset(0,__proto,'playEvent',null,function(event){
-			this._playEvents=event;
-			if (!event)
-				return;
-			this.addEvent();
-		});
-
-		/**
-		*设置提供数据的类
-		*@param classStr 类路径
-		*
-		*/
-		__getset(0,__proto,'effectClass',null,function(classStr){
-			this._effectClass=ClassUtils.getClass(classStr);
-			if (this._effectClass){
-				var uiData;
-				uiData=this._effectClass["uiView"];
-				if (uiData){
-					var aniData;
-					aniData=uiData["animations"];
-					if (aniData && aniData[0]){
-						this._setUp({},aniData[0]);
-						if (aniData[0].nodes && aniData[0].nodes[0]){
-							this._aniKeys=aniData[0].nodes[0].keys;
-						}
-					}
-				}
-			}
-		});
-
-		EffectAnimation.EffectAnimationBegin="effectanimationbegin";
-		return EffectAnimation;
 	})(FrameAnimation)
 
 
@@ -31571,71 +31241,6 @@ var Laya=window.Laya=(function(window,document){
 
 		GameStartUI.uiView={"type":"Dialog","props":{"width":720,"height":1280},"compId":1,"child":[{"type":"Image","props":{"y":0,"x":0,"width":720,"skin":"gameUI/bg.jpg","sizeGrid":"4,4,4,4","height":1280},"compId":2},{"type":"Image","props":{"y":378,"x":179,"skin":"gameUI/logo.png"},"compId":3},{"type":"Text","props":{"y":587,"x":20,"width":681,"var":"txt_load","text":"游戏资源加载进度","height":29,"fontSize":30,"font":"SimHei","color":"#1c1c1c","align":"center"},"compId":4},{"type":"Text","props":{"y":1200,"x":20,"width":681,"text":"LayaAir1.7.3引擎教学演示版","height":29,"fontSize":26,"font":"SimHei","color":"#7c7979","bold":true,"align":"center"},"compId":8},{"type":"Box","props":{"y":960,"x":240,"visible":true,"var":"btn_start"},"compId":10,"child":[{"type":"Button","props":{"y":0,"x":0,"width":240,"visible":true,"stateNum":2,"skin":"gameUI/btn_bg.png","sizeGrid":"20,20,20,20","height":80},"compId":6},{"type":"Image","props":{"y":19,"x":41,"skin":"gameUI/start.png"},"compId":11}],"components":[]}],"loadList":["gameUI/bg.jpg","gameUI/logo.png","gameUI/btn_bg.png","gameUI/start.png"],"loadList3D":[],"components":[]};
 		return GameStartUI;
-	})(Dialog)
-
-
-	//class laya.ui.AsynDialog extends laya.ui.Dialog
-	var AsynDialog=(function(_super){
-		function AsynDialog(){
-			this._uiView=null;
-			this.isCloseOther=false;
-			AsynDialog.__super.call(this);
-		}
-
-		__class(AsynDialog,'laya.ui.AsynDialog',_super);
-		var __proto=AsynDialog.prototype;
-		/**@private */
-		__proto.createView=function(uiView){
-			this._uiView=uiView;
-		}
-
-		__proto._open=function(modal,closeOther){
-			this.isModal=modal;
-			this.isCloseOther=closeOther;
-			Dialog.manager.lock(true);
-			if (this._uiView)this.onCreated();
-			else this.onOpen();
-		}
-
-		/**
-		*在页面未创建时执行一次，再次打开页面不会再执行，适合写一些只执行一次的逻辑，比如资源加载，节点事件监听
-		*/
-		__proto.onCreated=function(){
-			laya.ui.View.prototype.createView.call(this,this._uiView);
-			this._uiView=null;
-			this._dealDragArea();
-			this.onOpen();
-		}
-
-		/**
-		*在页面每次打开都会执行，适合做一些每次都需要处理的事情，比如消息请求，根据数据初始化页面
-		*/
-		__proto.onOpen=function(){
-			Dialog.manager.open(this,this.isCloseOther);
-			Dialog.manager.lock(false);
-		}
-
-		__proto.close=function(type){
-			Dialog.manager.close(this);
-			this.onClose();
-		}
-
-		/**
-		*在每次关闭的时候调用，适合关闭时停止动画，网络消息监听等逻辑
-		*/
-		__proto.onClose=function(){}
-		__proto.destroy=function(destroyChild){
-			(destroyChild===void 0)&& (destroyChild=true);
-			laya.ui.View.prototype.destroy.call(this,destroyChild);
-			this._uiView=null;
-			this.onDestroy();
-		}
-
-		/**
-		*在页面被销毁的时候调用，适合置空引用对象
-		*/
-		__proto.onDestroy=function(){}
-		return AsynDialog;
 	})(Dialog)
 
 

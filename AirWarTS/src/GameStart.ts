@@ -1,5 +1,7 @@
-class GameStart 
+
+
+
+class GameStart extends ui.GameStartUI
 {
-    
 
 }
