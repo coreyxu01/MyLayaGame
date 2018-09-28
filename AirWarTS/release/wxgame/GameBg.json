@@ -1,0 +1,1 @@
+{"type":"View","props":{"width":720,"height":1280},"compId":1,"child":[{"type":"Image","props":{"y":0,"x":0,"var":"bg1","skin":"background.png"},"compId":2},{"type":"Image","props":{"y":-1280,"x":0,"var":"bg2","skin":"background.png"},"compId":3}],"loadList":["background.png"],"loadList3D":[],"components":[]}
