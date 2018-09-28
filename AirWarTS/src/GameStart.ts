@@ -5,12 +5,12 @@ import { ui } from "./ui/layaMaxUI";
 export default class GameStart extends ui.GameStartUI
 {
     /***游戏资源地址数组***/
-    private assetArr:any=[{url:"res/atlas/gameRole.atlas"},
-    {url:"sound/achievement.mp3", type:Laya.Loader.SOUND}, 
-    {url:"sound/bullet.mp3", type:Laya.Loader.SOUND},
-    {url:"sound/game_over.mp3", type:Laya.Loader.SOUND},
-    {url:"sound/enemy1_die.mp3", type:Laya.Loader.SOUND},
-    {url:"sound/enemy3_out.mp3", type:Laya.Loader.SOUND}
+     private assetArr:any=[{url:"res/atlas/gameRole.atlas"}//,
+    // {url:"sound/achievement.mp3", type:Laya.Loader.SOUND}, 
+    // {url:"sound/bullet.mp3", type:Laya.Loader.SOUND},
+    // {url:"sound/game_over.mp3", type:Laya.Loader.SOUND},
+    // {url:"sound/enemy1_die.mp3", type:Laya.Loader.SOUND},
+    // {url:"sound/enemy3_out.mp3", type:Laya.Loader.SOUND}
     ]
 
     constructor() 

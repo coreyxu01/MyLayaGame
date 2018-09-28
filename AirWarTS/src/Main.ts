@@ -5,7 +5,10 @@ import GameStart from "./GameStart";
 import GameMap from "./GameMap";
 import GamePlay from "./GamePlay";
 import GameOver from "./GameOver";
-import Role	from "./Role";
+import Role	from "./Role/Role";
+import Hero	from "./Role/Hero";
+import Enemy from "./Role/Enemy";
+import Bullet from "./Role/Bullet";
 
 export default class Main 
 {
@@ -119,7 +122,7 @@ export default class Main
 		
 		//实例化主角(如果已实例化，不需要重新new)
 		if(this.hero == null)
-		this.hero = new Role();
+		this.hero = new Hero();
 		//初始化角色类型、血量，注：速度speed为0，因为主角是通过操控改变位置,阵营为0
 		this.hero.init("hero",10,0,30,0);
 		//死亡后会隐藏，重新开始后需显示
@@ -258,7 +261,6 @@ export default class Main
 			{
 				this.createEnemy(2, this.hps[2] + this.hpUp * 6,this.speeds[2], this.nums[2]);
 			}
-
 		}
 
 		/**
@@ -297,7 +299,7 @@ export default class Main
 			for (let i: number = 0; i < num; i++)
 			{
 				//创建敌人，从对象池创建
-				let enemy:Role = Laya.Pool.getItemByClass("role", Role);
+				let enemy:Enemy = Laya.Pool.getItemByClass("Enemy", Enemy);
 				//初始化敌人
 				enemy.init("enemy" + (index+1), hp, speed,this.radius[index],1);
 				//从对象池中创建的对象死亡前被隐藏了，因此要重新初始化显示，否则新创建角色不会显示出来
@@ -316,7 +318,6 @@ export default class Main
 		{
 			//移除所有舞台事件，鼠标操控
 			Laya.stage.offAll();
-			
 			//移除地图背景
 			this.map.removeSelf();
 			//移除游戏中UI
