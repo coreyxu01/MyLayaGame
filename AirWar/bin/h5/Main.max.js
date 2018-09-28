@@ -31276,6 +31276,9 @@ var Laya=window.Laya=(function(window,document){
 	})(GameOverUI)
 
 
+	/**
+	*游戏开始界面
+	*/
 	//class GameStart extends ui.GameStartUI
 	var GameStart=(function(_super){
 		function GameStart(){
@@ -31322,7 +31325,7 @@ var Laya=window.Laya=(function(window,document){
 	})(GameStartUI)
 
 
-	Laya.__init([LoaderManager,Browser,View,LocalStorage,GraphicAnimation,EventDispatcher,Render,WebGLContext2D,ShaderCompile,Timer,AtlasGrid,DrawText]);
+	Laya.__init([LoaderManager,EventDispatcher,Browser,Render,View,WebGLContext2D,ShaderCompile,Timer,LocalStorage,GraphicAnimation,AtlasGrid,DrawText]);
 	new Main();
 
 })(window,document,Laya);

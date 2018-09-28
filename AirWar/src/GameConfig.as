@@ -1,5 +1,5 @@
 package {
-      import ui.GameOverUI;	
+      import ui.GameBgUI;	
 	/**
 	 * 游戏初始化配置
 	 */
@@ -10,7 +10,7 @@ package {
 		public static var screenMode:String = "none";
 		public static var alignV:String = "top";
 		public static var alignH:String = "left";
-		public static var startScene:* = GameOverUI;
+		public static var startScene:* = GameBgUI;
 		public static var sceneRoot:String = "";
 		public static var debug:Boolean = false;
 		public static var stat:Boolean = false;
