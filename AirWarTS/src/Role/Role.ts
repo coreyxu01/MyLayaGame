@@ -123,41 +123,15 @@ export default class Role extends Laya.Sprite
         //如果角色隐藏，角色消亡并回收
         if(!this.visible)
         {
-            //主角不死亡回收，只隐藏，以免其他对象以主角回对象创建，发生引用修改
-            if(this.type!="hero") 	this.die();
+            this.die();
             return;
         }
         //角色根据速度飞行
         this.y += this.speed;
-        
         //如果移动到显示区域以外，则移除
-        if (this.type!="hero"&&(this.y > 1280+100||this.y<-150))
+        if (this.y > 1280+100||this.y<-150)
         {
             this.visible=false;
-        }
-        
-        //主角边界检查
-        if(this.type=="hero")
-        {
-            //需减去角色宽或高的一半，因为在IDE中制作动画时，我们把角色的中心做为了角色对象的原点
-            //判断是否左右超出
-            if(this.x<this.roleAni.width/2)
-            {
-                this.x=this.roleAni.width/2;
-            }
-            else if(this.x>720-this.roleAni.width/2)
-            {
-                this.x=720-this.roleAni.width/2;
-            }
-            //判断是否上下超出
-            if(this.y<this.roleAni.height/2)
-            {
-                this.y=this.roleAni.height/2;
-            }
-            else if(this.y>1280-this.roleAni.height/2)
-            {
-                this.y=1280-this.roleAni.height/2;
-            }
         }
     }
 

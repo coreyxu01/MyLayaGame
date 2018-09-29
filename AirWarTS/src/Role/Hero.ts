@@ -1,11 +1,11 @@
 import Role from "./Role";
 import Main from "../Main";
 import Bullet from "./Bullet";
+import GameConst from "../GameConst";
 
 //角色
 export default class Hero extends Role
 {
-    
      /**
      * 角色失血
      */		
@@ -17,7 +17,7 @@ export default class Hero extends Role
         if (this.hp > 0) 
         {
             //如果未死亡，则播放受击动画
-            this.playAction("hit");
+            //this.playAction("hit");
         }
         else 
         {
@@ -40,8 +40,6 @@ export default class Hero extends Role
         //吃子弹箱
         if(prop.propType==1) 
         {
-            //积分增加
-            Main.score++;
             //子弹级别增加
             this.bulletLevel++
             //子弹每升2级，子弹数量增加1，最大数量限制在4个
@@ -53,8 +51,6 @@ export default class Hero extends Role
         {
             //血量增加
             this.hp+=2;
-            //积分增加
-            Main.score+=1;
         }
         //道具死亡
         prop.hp=0;
@@ -62,7 +58,34 @@ export default class Hero extends Role
         prop.visible=false;
     }
 
-        /**
+    /**
+     更新
+     */	
+    public update():void
+    {
+        //主角边界检查
+        //需减去角色宽或高的一半，因为在IDE中制作动画时，我们把角色的中心做为了角色对象的原点
+        //判断是否左右超出
+        if(this.x<this.roleAni.width/2)
+        {
+            this.x=this.roleAni.width/2;
+        }
+        else if(this.x>720-this.roleAni.width/2)
+        {
+            this.x=720-this.roleAni.width/2;
+        }
+        //判断是否上下超出
+        if(this.y<this.roleAni.height/2)
+        {
+            this.y=this.roleAni.height/2;
+        }
+        else if(this.y>1280-this.roleAni.height/2)
+        {
+            this.y=1280-this.roleAni.height/2;
+        }
+    }
+
+    /**
      角色射击，生成子弹
      */		
     public shoot():void
@@ -86,10 +109,12 @@ export default class Hero extends Role
                 bullet.visible=true;
                 //设置子弹发射初始化位置
                 bullet.pos(this.x+pos[i], this.y-80);
+                //旋转角度
+                bullet.rotation = 0;
                 //添加到角色层
                 this.parent.addChild(bullet);
                 //添加子弹音效					
-                //Laya.SoundManager.playSound("sound/bullet.mp3");
+                Laya.SoundManager.playSound("sound/bullet.mp3");
             }
         }
     }
