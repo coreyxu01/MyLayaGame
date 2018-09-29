@@ -7,7 +7,7 @@ import Main from "../Main";
 export default class Role extends Laya.Sprite
 {
 	/***飞机的类型   “hero”:玩家飞机，“enemy”：敌人飞机、“bulle”：子弹、"ufo":道具****/
-    public type:String;
+    public type:string;
     /***飞机的血量***/
     public hp:number=0; 
     /***飞机的速度***/
@@ -21,7 +21,7 @@ export default class Role extends Laya.Sprite
     /***角色的动画资源***/
     protected roleAni:Animation;
     /***当前动画动作***/
-    protected action:String;
+    protected action:string;
     
     /***射击间隔***/
     public shootInterval: number= 300;
@@ -54,7 +54,7 @@ export default class Role extends Laya.Sprite
      * @param hitRadius   碰撞半径
      * @param camp    阵营
      */		
-    public init(type:String,hp:number,speed:number,hitRadius:number,camp:number):void
+    public init(type:string,hp:number,speed:number,hitRadius:number,camp:number):void
     {
         //角色初始化属性
         this.type=type;
@@ -65,10 +65,8 @@ export default class Role extends Laya.Sprite
         
         //道具属性初始为0
         this.propType=0;
-        
         //加载动画对象
         this.addChild(this.roleAni)
-        
         //监听动画完成事件
         this.roleAni.on(Event.COMPLETE,this,this.onComplete)
         //播放默认飞行动画
@@ -108,7 +106,7 @@ export default class Role extends Laya.Sprite
      * 播放动画 
      * @param action 动画状态   "fly"、"hit"、"die"
      */	
-    public playAction(action:String):void
+    public playAction(action:string):void
     {
         this.action=action;
         //播放角色动画,name=角色类型_动画状态，如：hero_fly
@@ -126,8 +124,10 @@ export default class Role extends Laya.Sprite
             this.die();
             return;
         }
+
         //角色根据速度飞行
         this.y += this.speed;
+
         //如果移动到显示区域以外，则移除
         if (this.y > 1280+100||this.y<-150)
         {
@@ -152,6 +152,7 @@ export default class Role extends Laya.Sprite
         this.roleAni.offAll();
         //从舞台移除
         this.removeSelf();
-
+        //回收到池
+        Laya.Pool.recover(this.type, this);
     }
 }

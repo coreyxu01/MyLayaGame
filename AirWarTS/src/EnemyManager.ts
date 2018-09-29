@@ -4,6 +4,7 @@ import Hero	from "./Role/Hero";
 import Enemy from "./Role/Enemy";
 import Bullet from "./Role/Bullet";
 import GameConst from "./GameConst";
+import RoleFactory from "./Role/RoleFactory";
 
 export default class EnemyManager
 {
@@ -38,12 +39,12 @@ export default class EnemyManager
 			this.createEnemy(0, GameConst.hps[0],GameConst.speeds[0] + GameConst.speedUp , GameConst.nums[0] + GameConst.numUp);
 		}
 		//生成中型飞机
-		if (Laya.timer.currFrame % (170 - GameConst.createTime * 2) == 0) 
+		if (Laya.timer.currFrame % (500 - GameConst.createTime * 2) == 0) 
 		{
 			this.createEnemy(1, GameConst.hps[1] +GameConst.hpUp * 2,GameConst.speeds[1] + GameConst.speedUp , GameConst.nums[1] + GameConst.numUp);
 		}
 		//生成boss
-		if (Laya.timer.currFrame % (1000 - GameConst.createTime * 3) == 0) 
+		if (Laya.timer.currFrame % (500 - GameConst.createTime * 3) == 0) 
 		{
 			this.createEnemy(2, GameConst.hps[2] + GameConst.hpUp * 6,GameConst.speeds[2], GameConst.nums[2]);
 		}
@@ -60,12 +61,13 @@ export default class EnemyManager
 	{
 		for (let i: number = 0; i < num; i++)
 		{
+			let enemyType = "enemy" + (index+1);
 			//创建敌人，从对象池创建
-			let enemy:Enemy = Laya.Pool.getItemByClass("Enemy", Enemy);
+			let enemy:Enemy = RoleFactory.GetRole(enemyType) as Enemy;
 			//初始化敌人
-			enemy.init("enemy" + (index+1), hp, speed,GameConst.radius[index],1);
+			enemy.init(enemyType, hp, speed,GameConst.radius[index],1);
 			//从对象池中创建的对象死亡前被隐藏了，因此要重新初始化显示，否则新创建角色不会显示出来
-			enemy.visible=true;
+			enemy.visible = true;
 			//随机位置
 			enemy.pos(Math.random() *(720-80)+50, -Math.random() * 100);
 			//添加到舞台上

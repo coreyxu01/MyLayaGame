@@ -2,6 +2,7 @@ import Role from "./Role";
 import Main from "../Main";
 import Bullet from "./Bullet";
 import GameConst from "../GameConst";
+import RoleFactory from "./RoleFactory";
 
 //角色
 export default class Hero extends Role
@@ -102,7 +103,7 @@ export default class Hero extends Role
                 //更新下次子弹射击的时间
                 this.shootTime = time + this.shootInterval ; 
                 //从对象池里面创建一个子弹
-                let bullet: Bullet = Laya.Pool.getItemByClass("Bullet",Bullet) as Bullet;
+                let bullet: Bullet = RoleFactory.GetRole("bullet2");
                 //初始化子弹信息
                 bullet.init("bullet2",1,-10,1,this.camp)
                 //子弹消失后会不显示，重新初始化

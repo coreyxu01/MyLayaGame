@@ -11,9 +11,19 @@ import Enemy from "./Role/Enemy";
 import Bullet from "./Role/Bullet";
 import EnemyManager from "./EnemyManager";
 import GameConst from "./GameConst";
+import RoleFactory from "./Role/RoleFactory";
 
 export default class Main 
 {
+	public static instance:Main;
+	public static GetInstance():Main
+	{
+		if(this.instance == null)
+			this.instance = new Main();
+
+		return this.instance;
+	}
+
 	/**开始页面***/
 	public start:GameStart;
 	/**地图页面***/
@@ -29,7 +39,7 @@ export default class Main
 	/**角色层容器***/
 	public roleLayer:Laya.Sprite;
 	/**玩家主角***/
-	public hero:Role;
+	public hero:Hero;
 	
 	/**鼠标上一帧x座标** */		
 	private moveX:number;
@@ -96,7 +106,7 @@ export default class Main
 		
 		//实例化主角(如果已实例化，不需要重新new)
 		if(this.hero == null)
-		this.hero = new Hero();
+			this.hero = RoleFactory.GetRole("hero");
 		//初始化角色类型、血量，注：速度speed为0，因为主角是通过操控改变位置,阵营为0
 		this.hero.init("hero",10,0,30,0);
 		//死亡后会隐藏，重新开始后需显示
@@ -287,4 +297,4 @@ export default class Main
 }
 
 //激活启动类
-new Main();
+Main.GetInstance();
