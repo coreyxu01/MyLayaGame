@@ -1,5 +1,6 @@
 import Role from "./Role";
 import Main from "../Main";
+import Bullet from "./Bullet";
 
 //角色
 export default class Hero extends Role
@@ -10,8 +11,6 @@ export default class Hero extends Role
      */		
     public lostHp(lostHp:number):void 
     {
-        console.log("Hero lostHp!!!!!!");
-
         //减血
         this.hp -= lostHp;
         //根据血量判断
@@ -61,5 +60,37 @@ export default class Hero extends Role
         prop.hp=0;
         //道具吃完后消失，下一帧回收
         prop.visible=false;
+    }
+
+        /**
+     角色射击，生成子弹
+     */		
+    public shoot():void
+    {
+        //获取当前时间
+        let time:number = Laya.Browser.now() ;
+        //如果当前时间大于下次射击时间
+        if (time >this.shootTime)
+        {
+            //获得发射子弹的位置数组
+            let pos:number[] = this.bulletPos[this.shootNum-1]
+            for(let i:number = 0 ; i<pos.length ; i++)
+            {
+                //更新下次子弹射击的时间
+                this.shootTime = time + this.shootInterval ; 
+                //从对象池里面创建一个子弹
+                let bullet: Bullet = Laya.Pool.getItemByClass("Bullet",Bullet) as Bullet;
+                //初始化子弹信息
+                bullet.init("bullet2",1,-10,1,this.camp)
+                //子弹消失后会不显示，重新初始化
+                bullet.visible=true;
+                //设置子弹发射初始化位置
+                bullet.pos(this.x+pos[i], this.y-80);
+                //添加到角色层
+                this.parent.addChild(bullet);
+                //添加子弹音效					
+                //Laya.SoundManager.playSound("sound/bullet.mp3");
+            }
+        }
     }
 }
