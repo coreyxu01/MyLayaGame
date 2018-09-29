@@ -9,41 +9,50 @@ import Enemy from "./Enemy";
 //角色
 export default class Enemy_1 extends Enemy
 {
+    private isMoveLeft = true;
+    private tickTime = 0;
+
     constructor() 
 	{
         super();
-        this.shootInterval = 5000;  //射击间隔
-        this.shootTime = this.shootInterval; //第一次射击时间
+        this.isMoveLeft = Math.random() < 0.5;
     }
 
     /**
-     角色射击，生成子弹
+     * 角色更新,边界检查
      */		
-    public shoot():void
+    public update():void
     {
-        // if (this.hp <= 0)
-        //     return; 
+        //获取当前时间
+        let time:number = Laya.Browser.now();
+        //如果当前时间大于下次射击时间
+        if (time > this.tickTime)
+        {
+            //更新下次子弹射击的时间
+            this.tickTime = time + 1000; 
+            this.isMoveLeft = Math.random() < 0.5;
+        }
 
-        // //获取当前时间
-        // let time:number = Laya.Browser.now();
-        // //如果当前时间大于下次射击时间
-        // if (time > this.shootTime)
-        // {
-        //     //更新下次子弹射击的时间
-        //     this.shootTime = time + this.shootInterval ; 
-        //     //从对象池里面创建一个子弹
-        //     let bullet: Bullet = RoleFactory.GetRole("bullet1");
-        //     //初始化子弹信息
-        //     bullet.init("bullet1",1,10,1,this.camp)
-        //     //子弹消失后会不显示，重新初始化
-        //     bullet.visible=true;
-        //     //设置子弹发射初始化位置
-        //     bullet.pos(this.x, this.y + 30);
+        //角色根据速度飞行
+        if(this.isMoveLeft)
+        {
+            this.x -= this.speed * 0.5;
+        }
+        else
+        {
+            this.x += this.speed * 0.5;
+        }
 
-        //     //添加到角色层
-        //     if( this.parent != null)
-        //         this.parent.addChild(bullet);
-        // }
+        //判断是否左右超出
+        if(this.x < this.roleAni.width/2)
+        {
+            this.isMoveLeft = false;
+        }
+        else if(this.x > 720-this.roleAni.width/2)
+        {
+            this.isMoveLeft = true;
+        }
+        super.update();
     }
 
 }

@@ -127,11 +127,20 @@ export default class Role extends Laya.Sprite
 
         //角色根据速度飞行
         this.y += this.speed;
-
         //如果移动到显示区域以外，则移除
         if (this.y > 1280+100||this.y<-150)
         {
             this.visible=false;
+        }
+
+        //判断是否左右超出
+        if(this.x<this.roleAni.width/2)
+        {
+            this.x=this.roleAni.width/2;
+        }
+        else if(this.x>720-this.roleAni.width/2)
+        {
+            this.x=720-this.roleAni.width/2;
         }
     }
 
