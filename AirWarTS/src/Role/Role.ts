@@ -37,6 +37,9 @@ export default class Role extends Laya.Sprite
     /***同时射击子弹数量***/
     public shootNum: number= 1;
 
+    //颜色渲染
+    public m_ColorFilter:Laya.ColorFilter;
+
     //飞机当前状态
     public state:RoleState = RoleState.Fly;  
     
@@ -47,6 +50,9 @@ export default class Role extends Laya.Sprite
          this.roleAni=new Animation();
          //加载IDE编辑的动画文件
          this.roleAni.loadAnimation("GameRole.ani");
+         //允许染色
+         this.m_ColorFilter = new Laya.ColorFilter();
+         this.filters = [ this.m_ColorFilter];
     }
 
     /**
@@ -74,6 +80,14 @@ export default class Role extends Laya.Sprite
         this.roleAni.on(Event.COMPLETE,this,this.onComplete)
         //播放默认飞行动画
         this.playAction("fly");
+
+        this.InitSelf();
+    }
+
+    //用了池 构造函数不会每次调用 初始化放在这
+    protected InitSelf():void
+    {
+
     }
     
     /***动画完成后回调方法***/

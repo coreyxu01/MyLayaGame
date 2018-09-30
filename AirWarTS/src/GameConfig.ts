@@ -10,7 +10,7 @@ export default class GameConfig{
     static screenMode:string="none";
     static alignV:string="top";
     static alignH:string="left";
-    static startScene:any="GamePlay.scene";
+    static startScene:any="GameOver.scene";
     static sceneRoot:string="";
     static debug:boolean=false;
     static stat:boolean=false;

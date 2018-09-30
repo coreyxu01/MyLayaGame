@@ -5,6 +5,7 @@ import GameConst from "../GameConst";
 import Bullet from "./Bullet";
 import RoleFactory from "./RoleFactory";
 import Enemy from "./Enemy";
+import BulletUtls from "./BulletUtls";
 
 //角色
 export default class Enemy_2 extends Enemy
@@ -34,24 +35,8 @@ export default class Enemy_2 extends Enemy
             //更新下次子弹射击的时间
             this.shootTime = time + this.shootInterval ; 
 
-            //多发子弹
-            for(let i = 0 ; i < 3 ; i ++)
-            {
-                //从对象池里面创建一个子弹
-                let bullet: Bullet = RoleFactory.GetRole("bullet1");
-                //初始化子弹信息
-                bullet.init("bullet1",1,10,1,this.camp)
-                //子弹消失后会不显示，重新初始化
-                bullet.visible=true;
-                //设置子弹发射初始化位置
-                bullet.pos(this.x, this.y + 30);
-                //不同角度
-                bullet.rotation = -30 + i * 30;
-
-                //添加到角色层
-                if( this.parent != null)
-                    this.parent.addChild(bullet);
-            }
+            //三发子弹
+            BulletUtls.Shoot_2(this.camp,this,0,30);
         }
 
     }

@@ -5,6 +5,7 @@ import GameConst from "../GameConst";
 import Bullet from "./Bullet";
 import RoleFactory from "./RoleFactory";
 import Enemy from "./Enemy";
+import BulletUtls from "./BulletUtls";
 
 //角色
 export default class Enemy_1 extends Enemy
@@ -13,10 +14,30 @@ export default class Enemy_1 extends Enemy
     private isMoveLeft = true;
     private tickTime = 0;
 
+    private subType:number = 0;
+
     constructor() 
 	{
         super();
+    }
+
+    protected InitSelf():void
+    {
         this.isMoveLeft = Math.random() < 0.5;
+        this.SetSubType();
+    }
+
+    private SetSubType()
+    {
+        this.subType =  Math.random() < 0.5 ? 0 : 1;
+        if(this.subType == 0)
+        {
+            this.m_ColorFilter.color(0,0,0,1);
+        }
+        else
+        {
+            this.m_ColorFilter.color(255,0,0,1);
+        }
     }
 
     public update():void
@@ -50,6 +71,13 @@ export default class Enemy_1 extends Enemy
             this.isMoveLeft = true;
         }
         super.update();
+    }
+
+    /**角色死亡**/
+    public lostProp():void
+    {
+        if(this.subType == 1)
+            BulletUtls.Shoot_5(this.camp,this,0,10);
     }
 
 }

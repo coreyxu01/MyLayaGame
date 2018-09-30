@@ -265,7 +265,7 @@ export default class Main
 			//关卡越高，敌机飞行速度越高
 			GameConst.speedUp = Math.floor(GameConst.level / 6);
 			//关卡越高，敌机血量越高
-			GameConst.hpUp = Math.floor(GameConst.level / 8);
+			GameConst.hpUp = Math.floor(GameConst.level / 2);
 			//关卡越高，敌机数量越多
 			GameConst.numUp = Math.floor(GameConst.level / 10);
 			//提高下一级的升级分数

@@ -5,6 +5,7 @@ import GameConst from "../GameConst";
 import Bullet from "./Bullet";
 import RoleFactory from "./RoleFactory";
 import Enemy from "./Enemy";
+import BulletUtls from "./BulletUtls";
 
 //角色
 export default class Enemy_3 extends Enemy
@@ -37,71 +38,17 @@ export default class Enemy_3 extends Enemy
             //生成随机道具类型
             if(Math.random() < 0.6)
             {
-                this.shootAct();
+                BulletUtls.Shoot_3(this.camp,this,0,80);
+                Laya.timer.once(500,this,
+                    ()=>{
+                        BulletUtls.Shoot_3(this.camp,this,0,80);
+                    });
             }
             else
             {
-                this.shootAct_2();
+                BulletUtls.Shoot_4(this.camp,this,0,80);
             }
         }
-    }
-
-
-    private shootAct():void
-    {
-        this.shootActDo();
-        Laya.timer.once(500,this,this.shootActDo);
-    }
-
-    //一组子弹实例
-    private shootActDo():void
-    {
-        //多发子弹
-        for(let i = 0 ; i < 18 ; i ++)
-        {
-            //从对象池里面创建一个子弹
-            let bullet: Bullet = RoleFactory.GetRole("bullet1");
-            //初始化子弹信息
-            bullet.init("bullet1",1,10,1,this.camp)
-            //子弹消失后会不显示，重新初始化
-            bullet.visible=true;
-            //设置子弹发射初始化位置
-            bullet.pos(this.x, this.y + 80);
-            //不同角度
-            bullet.rotation = -90 + i * 10;
-
-            //添加到角色层
-            if( this.parent != null)
-                this.parent.addChild(bullet);
-        }
-    }
-
-    private shootAct_2():void
-    {
-        for(let i = 0 ; i < 36 ; i ++)
-        {
-            Laya.timer.once(30 * i,this,this.shootActDo_2,[i],false);
-        }
-    }
-
-    shootActDo_2(index: number): any {
-           //从对象池里面创建一个子弹
-           let bullet: Bullet = RoleFactory.GetRole("bullet1");
-           //初始化子弹信息
-           bullet.init("bullet1",1,10,1,this.camp)
-           //子弹消失后会不显示，重新初始化
-           bullet.visible=true;
-           //设置子弹发射初始化位置
-           bullet.pos(this.x, this.y + 80);
-            if(index > 18)
-                index = 36 - index;
-
-           //不同角度
-           bullet.rotation = -90 + index * 10;
-
-           //添加到角色层
-           if( this.parent != null)
-               this.parent.addChild(bullet);
     }
    
     /**角色死亡掉落物品**/
