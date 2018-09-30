@@ -13,6 +13,9 @@ import EnemyManager from "./EnemyManager";
 import GameConst from "./GameConst";
 import RoleFactory from "./Role/RoleFactory";
 
+import * as GameConstTs from "./GameConst";
+import RoleState = GameConstTs.RoleState;
+
 export default class Main 
 {
 	public static instance:Main;
@@ -106,7 +109,7 @@ export default class Main
 		
 		//实例化主角(如果已实例化，不需要重新new)
 		if(this.hero == null)
-			this.hero = RoleFactory.GetRole("hero");
+			this.hero = RoleFactory.GetRole("hero") as Hero;
 		//初始化角色类型、血量，注：速度speed为0，因为主角是通过操控改变位置,阵营为0
 		this.hero.init("hero",10,0,30,0);
 		//死亡后会隐藏，重新开始后需显示
@@ -210,10 +213,16 @@ export default class Main
 			//发射子弹
 			role.shoot();
 
+			//无敌状态
+			if(role.state == RoleState.Invincible)  continue;
+
 			//碰撞检测
 			for(var j:number=i-1;j>-1;j--)
 			{	//获取第二个角色
 				var role1:Role=this.roleLayer.getChildAt(j) as Role;
+				//无敌状态
+				if(role1.state == RoleState.Invincible)  continue;
+				
 				//如果role1未死亡且不同阵营
 				if(role1.hp>0&&role1.camp!=role.camp)
 				{

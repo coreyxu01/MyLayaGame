@@ -20,7 +20,7 @@ export default class Enemy_3 extends Enemy
 
     /**
      角色射击，生成子弹
-     */		
+     */	
     public shoot():void
     {
         if (this.hp <= 0)
@@ -62,7 +62,7 @@ export default class Enemy_3 extends Enemy
             //从对象池里面创建一个子弹
             let bullet: Bullet = RoleFactory.GetRole("bullet1");
             //初始化子弹信息
-            bullet.init("bullet1",1,10,1,this.camp);
+            bullet.init("bullet1",1,10,1,this.camp)
             //子弹消失后会不显示，重新初始化
             bullet.visible=true;
             //设置子弹发射初始化位置
@@ -88,7 +88,7 @@ export default class Enemy_3 extends Enemy
            //从对象池里面创建一个子弹
            let bullet: Bullet = RoleFactory.GetRole("bullet1");
            //初始化子弹信息
-           bullet.init("bullet1",1,10,1,this.camp);
+           bullet.init("bullet1",1,10,1,this.camp)
            //子弹消失后会不显示，重新初始化
            bullet.visible=true;
            //设置子弹发射初始化位置

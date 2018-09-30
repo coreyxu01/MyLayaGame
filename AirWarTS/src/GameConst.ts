@@ -26,5 +26,10 @@ export default class GameConst
 	public static level:number = 1;
 	/**玩家得分***/
 	public static score:number = 0;
+}
 
+export enum RoleState
+{
+    Fly,        //飞行状态
+    Invincible  //无敌
 }

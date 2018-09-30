@@ -9,6 +9,7 @@ import Enemy from "./Enemy";
 //角色
 export default class Enemy_1 extends Enemy
 {
+    //是否向左边移动
     private isMoveLeft = true;
     private tickTime = 0;
 
@@ -18,17 +19,13 @@ export default class Enemy_1 extends Enemy
         this.isMoveLeft = Math.random() < 0.5;
     }
 
-    /**
-     * 角色更新,边界检查
-     */		
     public update():void
     {
         //获取当前时间
         let time:number = Laya.Browser.now();
-        //如果当前时间大于下次射击时间
+        //位移时间
         if (time > this.tickTime)
         {
-            //更新下次子弹射击的时间
             this.tickTime = time + 1000; 
             this.isMoveLeft = Math.random() < 0.5;
         }

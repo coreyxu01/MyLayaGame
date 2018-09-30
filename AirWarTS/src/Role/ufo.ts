@@ -4,7 +4,6 @@ import Main from "../Main";
 //角色
 export default class ufo extends Role
 {
-    
     /**
      * 角色失血
      */		

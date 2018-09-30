@@ -2,6 +2,8 @@
 import Animation = Laya.Animation;
 import Event = laya.events.Event;
 import Main from "../Main";
+import * as GameConstTs from "../GameConst";
+import RoleState = GameConstTs.RoleState;
 
 //角色
 export default class Role extends Laya.Sprite
@@ -34,8 +36,9 @@ export default class Role extends Laya.Sprite
     public bulletLevel: number = 0;
     /***同时射击子弹数量***/
     public shootNum: number= 1;
-    /***子弹偏移的位置***/
-    protected bulletPos: number[][] = [[0], [-15, 15], [-30, 0, 30], [-45, -15, 15, 45]];
+
+    //飞机当前状态
+    public state:RoleState = RoleState.Fly;  
     
     constructor() 
 	{
@@ -62,7 +65,7 @@ export default class Role extends Laya.Sprite
         this.speed=speed;
         this.hitRadius=hitRadius;
         this.camp=camp;
-        
+
         //道具属性初始为0
         this.propType=0;
         //加载动画对象

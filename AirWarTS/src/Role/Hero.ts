@@ -4,10 +4,17 @@ import Bullet from "./Bullet";
 import GameConst from "../GameConst";
 import RoleFactory from "./RoleFactory";
 
+import * as GameConstTs from "../GameConst";
+import RoleState = GameConstTs.RoleState;
+
 //角色
 export default class Hero extends Role
 {
-     /**
+
+    /***子弹偏移的位置***/
+    protected bulletPos: number[][] = [[0], [-15, 15], [-30, 0, 30], [-45, -15, 15, 45]];
+
+    /**
      * 角色失血
      */		
     public lostHp(lostHp:number):void 
@@ -19,6 +26,7 @@ export default class Hero extends Role
         {
             //如果未死亡，则播放受击动画
             //this.playAction("hit");
+            this.changeState(RoleState.Invincible);
         }
         else 
         {
@@ -28,8 +36,50 @@ export default class Hero extends Role
             Laya.SoundManager.playSound("sound/game_over.mp3");
         }
     }
+
+    /**
+     *  状态改变
+     */	
+    private changeState(state:RoleState):void
+    {
+        this.state = state;
+        //无敌状态
+        if(this.state == RoleState.Invincible)
+        {
+            this.playCount = 0;
+            this.playAlphaTween();
+        }
+    }
+
+    private playCount = 0;
+    private playAlphaTween()
+    {
+        //缓动类
+        let tween = Laya.Tween.to(this,{alpha:0.3},300,Laya.Ease.backInOut,
+            Laya.Handler.create(
+                this,()=>{
+                    this.playCount++;
+                    this.alpha = 1;
+
+                    if( this.playCount >= 3)
+                    {
+                        this.resetState();
+                    }
+                    else
+                    {
+                        this.playAlphaTween();
+                    }
+                }
+            )
+        );
+    }
+
+    //恢复状态
+    private resetState(): void {
+        this.changeState(RoleState.Fly);
+    }
     
-        /**
+    /**
      * 角色吃到道具，加血或子弹级别
      */		
     public eatProp(prop:Role):void
@@ -119,4 +169,6 @@ export default class Hero extends Role
             }
         }
     }
+
+
 }
